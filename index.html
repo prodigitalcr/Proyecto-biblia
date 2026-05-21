@@ -3,21 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi App de la Biblia</title>
+    <title>Proyecto Biblia</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; text-align: center; background-color: #f4f4f9; }
-        .menu { display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto; }
-        a { padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
-        a:hover { background: #0056b3; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            padding: 30px 20px; 
+            text-align: center; 
+            background-color: #0f172a; 
+            color: #f8fafc;
+        }
+        h1 { color: #38bdf8; margin-bottom: 5px; }
+        .subtitle { color: #94a3b8; margin-bottom: 30px; }
+        .menu-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+        h2 { font-size: 1.2rem; color: #e2e8f0; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-top: 20px; text-align: left; }
+        .menu-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        a { 
+            padding: 12px; 
+            background: #334155; 
+            color: #f1f5f9; 
+            text-decoration: none; 
+            border-radius: 6px; 
+            font-weight: 500;
+            text-align: left;
+            transition: all 0.2s;
+            display: block;
+        }
+        a:hover { background: #0284c7; color: white; transform: translateX(4px); }
     </style>
 </head>
 <body>
-    <h1>Mi App de la Biblia</h1>
-    <p>Selecciona una pantalla para empezar:</p>
-    <div class="menu">
-        <!-- Reemplaza "NombreCarpeta" por el nombre exacto de tus carpetas de Stitch -->
-        <a href="./NombreCarpeta1/code.html">Ir a la Pantalla 1</a>
-        <a href="./NombreCarpeta2/code.html">Ir a la Pantalla 2</a>
+
+    <h1>Proyecto Biblia</h1>
+    <p class="subtitle">Selecciona una interfaz o prototipo para abrir:</p>
+
+    <div class="menu-container">
+        
+        <h2>Lectores y Bibliotecas</h2>
+        <div class="menu-group">
+            <a href="./lector_de_biblia_inmersivo/code.html">📖 Lector de Biblia Inmersivo</a>
+            <a href="./lector_inmersivo_modo_oscuro_deep/code.html">🌙 Lector Inmersivo (Modo Oscuro)</a>
+            <a href="./biblioteca_biblia_rv60/code.html">📚 Biblioteca Biblia RV60</a>
+            <a href="./biblioteca_modo_oscuro_deep/code.html">🌌 Biblioteca (Modo Oscuro)</a>
+        </div>
+
+        <h2>Configuración</h2>
+        <div class="menu-group">
+            <a href="./configuraci_n_biblia_rv60_1/code.html">⚙️ Configuración Biblia RV60 (Opción 1)</a>
+            <a href="./configuraci_n_biblia_rv60_2/code.html">⚙️ Configuración Biblia RV60 (Opción 2)</a>
+            <a href="./configuraci_n_modo_oscuro_deep_1/code.html">🛠️ Configuración Oscura (Opción 1)</a>
+            <a href="./configuraci_n_modo_oscuro_deep_2/code.html">🛠️ Configuración Oscura (Opción 2)</a>
+        </div>
+
+        <h2>Momentos</h2>
+        <div class="menu-group">
+            <a href="./momentos_biblia_rv60/code.html">✨ Momentos Biblia RV60</a>
+            <a href="./momentos_conexi_n_espiritual/code.html">🌱 Momentos Conexión Espiritual</a>
+            <a href="./momentos_modo_oscuro_deep/code.html">🖤 Momentos (Modo Oscuro)</a>
+        </div>
+
+        <h2>Gestión e Importación</h2>
+        <div class="menu-group">
+            <a href="./gesti_n_de_carga_de_libros/code.html">📤 Gestión de Carga de Libros</a>
+            <a href="./gu_a_de_importaci_n_de_libros/code.html">📋 Guía de Importación de Libros</a>
+            <a href="./gu_a_de_instalaci_n_y_carga/code.html">💻 Guía de Instalación y Carga</a>
+        </div>
+
+        <h2>Prototipos y Estilos</h2>
+        <div class="menu-group">
+            <a href="./sacred_minimalist_1/code.html">⚪ Sacred Minimalist 1</a>
+            <a href="./sacred_minimalist_2/code.html">⚪ Sacred Minimalist 2</a>
+            <a href="./untitled_prototype_1/code.html">🧪 Prototipo sin título 1</a>
+            <a href="./untitled_prototype_2/code.html">🧪 Prototipo sin título 2</a>
+            <a href="./biblia2.html">🔗 Archivo biblia2.html</a>
+        </div>
+
     </div>
+
 </body>
 </html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Technical Setup - Reina Valera 1960</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&amp;family=Inter:wght@400;500&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline-variant": "#454653",
+                      "surface-tint": "#bdc2ff",
+                      "on-error": "#690005",
+                      "on-error-container": "#ffdad6",
+                      "inverse-primary": "#4953bc",
+                      "secondary-fixed": "#ffe088",
+                      "surface-container-low": "#1a1c20",
+                      "secondary": "#e9c349",
+                      "on-primary": "#131e8c",
+                      "tertiary-fixed-dim": "#c1c7cf",
+                      "primary-fixed": "#e0e0ff",
+                      "on-primary-fixed-variant": "#2f3aa3",
+                      "on-secondary": "#3c2f00",
+                      "tertiary-fixed": "#dde3eb",
+                      "secondary-fixed-dim": "#e9c349",
+                      "primary-container": "#818cf8",
+                      "on-secondary-fixed": "#241a00",
+                      "error-container": "#93000a",
+                      "surface-container-highest": "#333539",
+                      "on-secondary-fixed-variant": "#574500",
+                      "surface-container-high": "#282a2e",
+                      "on-surface-variant": "#c6c5d5",
+                      "background": "#111318",
+                      "surface-container-lowest": "#0c0e12",
+                      "on-primary-fixed": "#000767",
+                      "on-tertiary-fixed-variant": "#41474e",
+                      "on-surface": "#e2e2e8",
+                      "surface-variant": "#333539",
+                      "on-tertiary": "#2b3137",
+                      "on-background": "#e2e2e8",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#2f3035",
+                      "primary-fixed-dim": "#bdc2ff",
+                      "surface-dim": "#111318",
+                      "surface-container": "#1e2024",
+                      "on-primary-container": "#101b8a",
+                      "inverse-surface": "#e2e2e8",
+                      "on-tertiary-container": "#282f35",
+                      "tertiary-container": "#90969d",
+                      "on-secondary-container": "#342800",
+                      "surface-bright": "#37393e",
+                      "tertiary": "#c1c7cf",
+                      "secondary-container": "#af8d11",
+                      "primary": "#bdc2ff",
+                      "outline": "#908f9e",
+                      "on-tertiary-fixed": "#161c22",
+                      "surface": "#111318"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "container-max": "1200px",
+                      "base": "8px",
+                      "xl": "80px",
+                      "lg": "48px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Newsreader"],
+                      "label-md": ["Geist"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Newsreader"],
+                      "label-sm": ["Geist"],
+                      "display-lg-mobile": ["Newsreader"],
+                      "headline-sm": ["Newsreader"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "30px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Ambient subtle noise for the deep sanctuary feel */
+        .ambient-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        
+        /* Webkit scrollbar adjustments for sleekness */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333539; border-radius: 4px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen relative font-body-md text-body-md overflow-x-hidden">
+<!-- Ambient Texture Overlay -->
+<div class="fixed inset-0 ambient-noise z-0"></div>
+<!-- SHARED COMPONENT: TopAppBar -->
+<header class="bg-surface/80 dark:bg-sanctuary-navy/80 backdrop-blur-md text-primary dark:text-primary-fixed-dim docked full-width top-0 sticky bg-transparent flat no shadows flex justify-between items-center w-full px-page-margin-mobile h-16 z-40 border-b border-outline-variant/10 md:px-gutter">
+<!-- Leading Icon -->
+<button class="text-on-surface-variant dark:text-outline-variant hover:opacity-70 transition-opacity scale-95 active:scale-90 transition-transform p-2 rounded-full focus:outline-none focus:ring-1 focus:ring-outline-variant/30">
+<span class="material-symbols-outlined text-2xl" data-icon="menu">menu</span>
+</button>
+<!-- Brand Headline -->
+<div class="font-scripture-display-mobile text-ui-header text-on-surface dark:text-on-primary-container font-headline-md text-headline-md truncate tracking-tight">
+            Reina Valera 1960
+        </div>
+<!-- Trailing Icon -->
+<button class="text-on-surface-variant dark:text-outline-variant hover:opacity-70 transition-opacity scale-95 active:scale-90 transition-transform p-2 rounded-full focus:outline-none focus:ring-1 focus:ring-outline-variant/30">
+<span class="material-symbols-outlined text-2xl" data-icon="search">search</span>
+</button>
+</header>
+<!-- MAIN CANVAS -->
+<main class="relative z-10 max-w-container-max mx-auto px-gutter pt-lg pb-xl md:pb-lg flex flex-col gap-lg">
+<!-- Screen Title Section -->
+<header class="text-center max-w-2xl mx-auto space-y-sm">
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-primary tracking-tight">
+                System Protocols
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant opacity-80">
+                Technical initialization and module ingestion procedures for local sanctuary environments.
+            </p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md items-start">
+<!-- CARD 1: Developer Console (Running the App) -->
+<section class="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 rounded-xl overflow-hidden relative group">
+<!-- Subtle glow effect on hover -->
+<div class="absolute inset-0 bg-primary-container/0 group-hover:bg-primary-container/5 transition-colors duration-500 ease-out pointer-events-none"></div>
+<!-- Terminal Header -->
+<div class="flex items-center gap-2 px-md py-sm border-b border-outline-variant/10 bg-surface-container/50">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-error/60"></div>
+<div class="w-3 h-3 rounded-full bg-secondary-container/60"></div>
+<div class="w-3 h-3 rounded-full bg-primary-container/60"></div>
+</div>
+<h2 class="ml-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Environment Setup</h2>
+</div>
+<!-- Terminal Body -->
+<div class="p-md space-y-md">
+<p class="font-body-md text-body-md text-on-surface">
+                        The application architecture is built on a modern <span class="text-primary font-medium">React</span> and <span class="text-secondary-fixed-dim font-medium">Vite</span> foundation, ensuring optimal performance and rapid hot-module replacement during development.
+                    </p>
+<!-- Code Block -->
+<div class="bg-surface-container-lowest border border-outline-variant/10 rounded-lg p-sm font-label-md text-label-md overflow-x-auto">
+<div class="flex flex-col space-y-2">
+<div class="text-tertiary">
+<span class="text-outline-variant select-none opacity-50 mr-2">$</span>
+<span class="text-on-surface">git clone</span> repository-url
+                            </div>
+<div class="text-tertiary">
+<span class="text-outline-variant select-none opacity-50 mr-2">$</span>
+<span class="text-on-surface">cd</span> bible-rv60-app
+                            </div>
+<div class="text-primary-fixed mt-2">
+<span class="text-outline-variant select-none opacity-50 mr-2">$</span>
+                                npm install
+                            </div>
+<div class="text-secondary-fixed">
+<span class="text-outline-variant select-none opacity-50 mr-2">$</span>
+                                npm run dev
+                            </div>
+</div>
+</div>
+<div class="flex items-start gap-sm mt-4 p-sm bg-primary-container/5 border border-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5" data-icon="info">info</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">
+                            Ensure Node.js v18+ is present in your local runtime environment before executing initialization commands.
+                        </p>
+</div>
+</div>
+</section>
+<!-- CARD 2: Step-by-Step Upload -->
+<section class="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 rounded-xl p-md relative overflow-hidden group">
+<div class="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-colors duration-500 ease-out pointer-events-none"></div>
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-2xl" data-icon="library_add">library_add</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Module Ingestion</h2>
+</div>
+<!-- Steps List -->
+<ol class="space-y-sm relative before:absolute before:inset-y-2 before:left-[11px] before:w-px before:bg-outline-variant/20">
+<!-- Step 1 -->
+<li class="relative flex gap-md items-start pb-4">
+<div class="relative z-10 w-6 h-6 rounded-full bg-surface border border-secondary flex items-center justify-center shrink-0 mt-1 shadow-[0_0_12px_rgba(233,195,73,0.1)]">
+<span class="font-label-sm text-label-sm text-secondary">1</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">Prepare Artifacts</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Ensure your source material is saved strictly as a <code class="text-secondary-fixed-dim bg-surface-container px-1 py-0.5 rounded text-sm">.txt</code> file artifact.
+                            </p>
+</div>
+</li>
+<!-- Step 2 -->
+<li class="relative flex gap-md items-start pb-4">
+<div class="relative z-10 w-6 h-6 rounded-full bg-surface border border-secondary flex items-center justify-center shrink-0 mt-1 shadow-[0_0_12px_rgba(233,195,73,0.1)]">
+<span class="font-label-sm text-label-sm text-secondary">2</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">Data Structure Validation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                The file contents must be formatted as raw <span class="text-primary border-b border-primary/30">SQL tuples</span> representing the structural index of the specific book or module.
+                            </p>
+</div>
+</li>
+<!-- Step 3 -->
+<li class="relative flex gap-md items-start pb-4">
+<div class="relative z-10 w-6 h-6 rounded-full bg-surface border border-secondary flex items-center justify-center shrink-0 mt-1 shadow-[0_0_12px_rgba(233,195,73,0.1)]">
+<span class="font-label-sm text-label-sm text-secondary">3</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">Navigate to Sanctuary</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Open the application and access the <strong class="text-on-surface font-medium">Library</strong> section from the main navigation matrix.
+                            </p>
+</div>
+</li>
+<!-- Step 4 -->
+<li class="relative flex gap-md items-start">
+<div class="relative z-10 w-6 h-6 rounded-full bg-secondary flex items-center justify-center shrink-0 mt-1 shadow-[0_0_15px_rgba(233,195,73,0.3)]">
+<span class="material-symbols-outlined text-[14px] text-on-secondary" data-icon="check" data-weight="fill">check</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-1">Execute Injection</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                Trigger the <button class="inline-flex items-center gap-1 text-primary hover:text-primary-fixed-dim transition-colors px-2 py-0.5 rounded bg-primary/10 border border-primary/20"><span class="material-symbols-outlined text-[16px]" data-icon="add">add</span> Add Module</button> action and select your prepared <code class="text-xs">.txt</code> artifact.
+                            </p>
+</div>
+</li>
+</ol>
+</section>
+</div>
+</main>
+<!-- SHARED COMPONENT: BottomNavBar (Mobile Only) -->
+<!-- Applying exact styles from JSON, noting "Settings" as the active state for a technical setup guide -->
+<nav class="md:hidden bg-surface/80 dark:bg-sanctuary-navy/80 backdrop-blur-md text-primary dark:text-primary-fixed-dim docked full-width bottom-0 fixed bg-transparent flat no shadows fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe border-t border-outline-variant/10">
+<!-- Inactive: Library -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-outline-variant/60 hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg p-1" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-sm text-label-sm text-ui-label">Library</span>
+</a>
+<!-- Inactive: Reader -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-outline-variant/60 hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg p-1" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="menu_book">menu_book</span>
+<span class="font-label-sm text-label-sm text-ui-label">Reader</span>
+</a>
+<!-- Inactive: Moments -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 dark:text-outline-variant/60 hover:text-primary dark:hover:text-primary-fixed-dim transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg p-1" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-ui-label">Moments</span>
+</a>
+<!-- Active: Settings (Intent match for Setup/Guide) -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold hover:text-primary dark:hover:text-primary-fixed-dim scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg p-1" href="#">
+<!-- Utilizing absolute glow behind active icon for premium feel -->
+<div class="relative">
+<div class="absolute inset-0 bg-primary/20 blur-md rounded-full"></div>
+<span class="material-symbols-outlined text-2xl mb-1 relative z-10" data-icon="settings" data-weight="fill">settings</span>
+</div>
+<span class="font-label-sm text-label-sm text-ui-label">Settings</span>
+</a>
+</nav>
+</body></html>

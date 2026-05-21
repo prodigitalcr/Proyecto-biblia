@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Reina Valera 1960 - Reader</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;600;700;800&amp;family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config injected from instructions -->
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "inverse-primary": "#4953bc",
+                "tertiary-fixed": "#dde3eb",
+                "surface": "#111318",
+                "surface-container-high": "#282a2e",
+                "on-primary-container": "#101b8a",
+                "outline": "#908f9e",
+                "on-surface-variant": "#c6c5d5",
+                "secondary-fixed": "#ffe088",
+                "on-background": "#e2e2e8",
+                "tertiary": "#c1c7cf",
+                "on-primary-fixed": "#000767",
+                "on-tertiary-container": "#282f35",
+                "outline-variant": "#454653",
+                "surface-tint": "#bdc2ff",
+                "tertiary-fixed-dim": "#c1c7cf",
+                "on-tertiary-fixed-variant": "#41474e",
+                "on-tertiary": "#2b3137",
+                "on-primary": "#131e8c",
+                "secondary-container": "#af8d11",
+                "on-error-container": "#ffdad6",
+                "background": "#111318",
+                "surface-container": "#1e2024",
+                "on-secondary": "#3c2f00",
+                "on-secondary-fixed": "#241a00",
+                "surface-variant": "#333539",
+                "on-primary-fixed-variant": "#2f3aa3",
+                "surface-container-lowest": "#0c0e12",
+                "on-tertiary-fixed": "#161c22",
+                "on-secondary-container": "#342800",
+                "secondary-fixed-dim": "#e9c349",
+                "error": "#ffb4ab",
+                "surface-dim": "#111318",
+                "secondary": "#e9c349",
+                "inverse-surface": "#e2e2e8",
+                "surface-bright": "#37393e",
+                "inverse-on-surface": "#2f3035",
+                "on-secondary-fixed-variant": "#574500",
+                "on-error": "#690005",
+                "primary-fixed": "#e0e0ff",
+                "surface-container-low": "#1a1c20",
+                "primary": "#bdc2ff",
+                "surface-container-highest": "#333539",
+                "error-container": "#93000a",
+                "primary-container": "#818cf8",
+                "on-surface": "#e2e2e8",
+                "tertiary-container": "#90969d",
+                "primary-fixed-dim": "#bdc2ff",
+                "sanctuary-navy": "#0a0c10",
+                "indigo-accent": "#818cf8"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "md": "24px",
+                "sm": "12px",
+                "gutter": "24px",
+                "xl": "80px",
+                "lg": "48px",
+                "container-max": "1200px",
+                "xs": "4px",
+                "base": "8px",
+                "page-margin-mobile": "1.5rem",
+                "page-margin-desktop": "4rem",
+                "stack-md": "1.5rem",
+                "reader-max-width": "720px",
+                "stack-lg": "3rem",
+                "stack-sm": "0.5rem"
+        },
+        "fontFamily": {
+                "headline-sm": [
+                        "Newsreader"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Newsreader"
+                ],
+                "display-lg-mobile": [
+                        "Newsreader"
+                ],
+                "label-md": [
+                        "Geist"
+                ],
+                "headline-md": [
+                        "Newsreader"
+                ],
+                "label-sm": [
+                        "Geist"
+                ],
+                "scripture-body": ["Newsreader"],
+                "scripture-display-mobile": ["Newsreader"],
+                "scripture-display": ["Newsreader"],
+                "scripture-verse-num": ["Geist"],
+                "ui-header": ["Inter"],
+                "ui-label": ["Geist"],
+                "ui-body": ["Inter"],
+                "ui-button": ["Inter"]
+        },
+        "fontSize": {
+                "headline-sm": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "26px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "30px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display-lg-mobile": [
+                        "36px",
+                        {
+                                "lineHeight": "44px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.03em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "scripture-body": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+                "scripture-display-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "400"}],
+                "scripture-display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                "scripture-verse-num": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                "ui-header": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+                "ui-label": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                "ui-body": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                "ui-button": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Subtle fade-in for verses */
+        .verse-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Staggered animation delays */
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+        
+        /* Highlight selection styling */
+        ::selection {
+            background-color: rgba(129, 140, 248, 0.2); /* indigo-accent at 20% */
+            color: inherit;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-sanctuary-navy text-on-surface antialiased min-h-screen flex flex-col selection:bg-indigo-accent/20">
+<!-- TopAppBar from JSON -->
+<header class="flex justify-between items-center w-full px-page-margin-mobile h-16 z-40 bg-sanctuary-navy/80 backdrop-blur-md sticky top-0 full-width">
+<button aria-label="Menu" class="text-on-surface-variant hover:text-on-surface transition-opacity scale-95 active:scale-90 transition-transform flex items-center justify-center p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+<div class="flex flex-col items-center justify-center">
+<h1 class="font-ui-header text-ui-header text-indigo-accent">Reina Valera 1960</h1>
+<div class="flex items-center gap-1 mt-0.5 bg-surface-container-high rounded-full px-3 py-1 cursor-pointer hover:bg-surface-variant transition-colors">
+<span class="font-ui-label text-ui-label text-on-surface-variant">Génesis 1</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_drop_down</span>
+</div>
+</div>
+<button aria-label="Search" class="text-on-surface-variant hover:text-on-surface transition-opacity scale-95 active:scale-90 transition-transform flex items-center justify-center p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+</header>
+<!-- Main Content Canvas - The Reader -->
+<main class="flex-grow flex justify-center pb-32 pt-8 w-full overflow-y-auto">
+<article class="w-full max-w-reader-max-width px-page-margin-mobile md:px-page-margin-desktop">
+<!-- Book & Chapter Header -->
+<header class="mb-stack-lg text-center verse-fade-in">
+<h2 class="font-scripture-display-mobile md:font-scripture-display text-scripture-display-mobile md:text-scripture-display text-on-surface mb-stack-sm">
+                    Génesis
+                </h2>
+<div class="inline-flex items-center justify-center bg-surface-container-high rounded-full px-4 py-1.5 border border-outline-variant">
+<span class="font-ui-label text-ui-label text-on-surface-variant uppercase tracking-widest">Capítulo 1</span>
+</div>
+</header>
+<!-- Scripture Content -->
+<div class="font-scripture-body text-scripture-body text-on-background relative">
+<!-- Verse 1 -->
+<p class="mb-stack-md relative pl-10 md:pl-12 verse-fade-in delay-100 group">
+<span class="absolute left-0 top-[6px] font-scripture-verse-num text-scripture-verse-num text-indigo-accent/60 group-hover:text-indigo-accent transition-colors select-none w-8 text-right pr-2">1</span>
+                    En el principio creó Dios los cielos y la tierra.
+                </p>
+<!-- Verse 2 -->
+<p class="mb-stack-md relative pl-10 md:pl-12 verse-fade-in delay-200 group">
+<span class="absolute left-0 top-[6px] font-scripture-verse-num text-scripture-verse-num text-indigo-accent/60 group-hover:text-indigo-accent transition-colors select-none w-8 text-right pr-2">2</span>
+                    Y la tierra estaba desordenada y vacía, y las tinieblas estaban sobre la faz del abismo, y el Espíritu de Dios se movía sobre la faz de las aguas.
+                </p>
+<!-- Verse 3 -->
+<p class="mb-stack-md relative pl-10 md:pl-12 verse-fade-in delay-300 group">
+<span class="absolute left-0 top-[6px] font-scripture-verse-num text-scripture-verse-num text-indigo-accent/60 group-hover:text-indigo-accent transition-colors select-none w-8 text-right pr-2">3</span>
+                    Y dijo Dios: Sea la luz; y fue la luz.
+                </p>
+<!-- Verse 4 -->
+<p class="mb-stack-md relative pl-10 md:pl-12 verse-fade-in delay-400 group">
+<span class="absolute left-0 top-[6px] font-scripture-verse-num text-scripture-verse-num text-indigo-accent/60 group-hover:text-indigo-accent transition-colors select-none w-8 text-right pr-2">4</span>
+                    Y vio Dios que la luz era buena; y separó Dios la luz de las tinieblas.
+                </p>
+<!-- Verse 5 -->
+<p class="mb-stack-md relative pl-10 md:pl-12 verse-fade-in delay-500 group">
+<span class="absolute left-0 top-[6px] font-scripture-verse-num text-scripture-verse-num text-indigo-accent/60 group-hover:text-indigo-accent transition-colors select-none w-8 text-right pr-2">5</span>
+                    Y llamó Dios a la luz Día, y a las tinieblas llamó Noche. Y fue la tarde y la mañana un día.
+                </p>
+<!-- Section Break (e.g., Day 2) -->
+<div class="flex items-center justify-center my-stack-lg verse-fade-in delay-500 opacity-50">
+<div class="h-[1px] w-12 bg-outline-variant"></div>
+<span class="material-symbols-outlined mx-4 text-outline-variant text-[16px]">flare</span>
+<div class="h-[1px] w-12 bg-outline-variant"></div>
+</div>
+<!-- Verse 6 -->
+<p class="mb-stack-md relative pl-10 md:pl-12 verse-fade-in delay-500 group">
+<span class="absolute left-0 top-[6px] font-scripture-verse-num text-scripture-verse-num text-indigo-accent/60 group-hover:text-indigo-accent transition-colors select-none w-8 text-right pr-2">6</span>
+                    Luego dijo Dios: Haya expansión en medio de las aguas, y separe las aguas de las aguas.
+                </p>
+<!-- Verse 7 -->
+<p class="mb-stack-md relative pl-10 md:pl-12 verse-fade-in delay-500 group">
+<span class="absolute left-0 top-[6px] font-scripture-verse-num text-scripture-verse-num text-indigo-accent/60 group-hover:text-indigo-accent transition-colors select-none w-8 text-right pr-2">7</span>
+                    E hizo Dios la expansión, y separó las aguas que estaban debajo de la expansión, de las aguas que estaban sobre la expansión. Y fue así.
+                </p>
+</div>
+<!-- End of chapter marker -->
+<div class="mt-stack-lg flex justify-center pb-8">
+<button class="bg-surface-container-high hover:bg-surface-variant text-on-surface font-ui-button text-ui-button py-3 px-6 rounded-full transition-colors flex items-center gap-2 border border-outline-variant">
+                     Siguiente Capítulo
+                     <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</main>
+<!-- Floating Action Pill (Typography / Settings) -->
+<div class="fixed bottom-24 right-4 z-40">
+<button class="bg-surface-container-high/90 backdrop-blur-md border border-outline-variant text-on-surface-variant shadow-lg p-3 rounded-full hover:bg-surface-variant transition-all active:scale-95 flex items-center justify-center" id="fab-menu-toggle">
+<span class="material-symbols-outlined">text_format</span>
+</button>
+<!-- Hidden popover menu (simulated state) -->
+<div class="absolute bottom-14 right-0 bg-surface-container-high/95 backdrop-blur-xl border border-outline-variant rounded-xl shadow-xl p-4 w-48 hidden flex-col gap-4 origin-bottom-right transition-all" id="fab-menu">
+<div class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+<span class="font-ui-label text-ui-label text-on-surface">SIZE</span>
+<div class="flex gap-2">
+<button class="p-1 text-on-surface-variant hover:text-indigo-accent"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<button class="p-1 text-on-surface-variant hover:text-indigo-accent"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-ui-label text-ui-label text-on-surface">THEME</span>
+<div class="flex gap-2">
+<button class="w-6 h-6 rounded-full bg-white border border-outline-variant/30"></button>
+<button class="w-6 h-6 rounded-full bg-sanctuary-navy border border-outline-variant/30 ring-2 ring-indigo-accent ring-offset-1 ring-offset-sanctuary-navy"></button>
+<button class="w-6 h-6 rounded-full bg-[#f4ecd8] border border-outline-variant/30"></button>
+</div>
+</div>
+</div>
+</div>
+<!-- BottomNavBar from JSON -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe border-t border-outline-variant/10 bg-sanctuary-navy/80 backdrop-blur-md md:hidden">
+<!-- Library (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-indigo-accent group transition-all duration-200 w-16" href="#">
+<div class="px-4 py-1 rounded-full group-hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined">auto_stories</span>
+</div>
+<span class="font-ui-label text-ui-label">Library</span>
+</a>
+<!-- Reader (Active - matching the primary intent of reading scripture) -->
+<a class="flex flex-col items-center justify-center text-indigo-accent font-bold group scale-95 transition-all duration-200 w-16" href="#">
+<div class="px-4 py-1 rounded-full bg-primary-container/20 text-indigo-accent mb-1">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<span class="font-ui-label text-ui-label">Reader</span>
+</a>
+<!-- Moments (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-indigo-accent group transition-all duration-200 w-16" href="#">
+<div class="px-4 py-1 rounded-full group-hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<span class="font-ui-label text-ui-label">Moments</span>
+</a>
+<!-- Settings (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-indigo-accent group transition-all duration-200 w-16" href="#">
+<div class="px-4 py-1 rounded-full group-hover:bg-surface-container-high transition-colors mb-1">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<span class="font-ui-label text-ui-label">Settings</span>
+</a>
+</nav>
+<!-- SideNav for Desktop (Translating NavigationDrawer conceptually for md:flex, though omitted from JSON active render list due to BottomNav priority on mobile, adding basic structure for responsiveness) -->
+<aside class="hidden md:flex flex-col py-6 h-full w-80 rounded-r-xl bg-surface shadow-lg fixed left-0 top-16 bottom-0 z-30 border-r border-outline-variant/10 overflow-y-auto">
+<div class="px-6 mb-6">
+<h2 class="font-scripture-display-mobile text-on-surface text-ui-header font-ui-header">Holy Scriptures</h2>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="text-on-surface-variant px-4 py-3 mx-2 rounded-full hover:bg-surface-container-high transition-colors duration-200 flex items-center gap-3 font-ui-body text-ui-body" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+                Old Testament
+            </a>
+<a class="bg-primary-container/20 text-indigo-accent rounded-full mx-2 px-4 py-3 flex items-center gap-3 font-ui-body text-ui-body transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+                New Testament
+            </a>
+<a class="text-on-surface-variant px-4 py-3 mx-2 rounded-full hover:bg-surface-container-high transition-colors duration-200 flex items-center gap-3 font-ui-body text-ui-body" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+                Bookmarks
+            </a>
+<a class="text-on-surface-variant px-4 py-3 mx-2 rounded-full hover:bg-surface-container-high transition-colors duration-200 flex items-center gap-3 font-ui-body text-ui-body" href="#">
+<span class="material-symbols-outlined">format_color_fill</span>
+                Highlights
+            </a>
+<a class="text-on-surface-variant px-4 py-3 mx-2 rounded-full hover:bg-surface-container-high transition-colors duration-200 flex items-center gap-3 font-ui-body text-ui-body" href="#">
+<span class="material-symbols-outlined">event_note</span>
+                Reading Plans
+            </a>
+</nav>
+</aside>
+<script>
+        // Simple JS for the FAB toggle micro-interaction
+        document.addEventListener('DOMContentLoaded', () => {
+            const fabBtn = document.getElementById('fab-menu-toggle');
+            const fabMenu = document.getElementById('fab-menu');
+            
+            if(fabBtn && fabMenu) {
+                fabBtn.addEventListener('click', () => {
+                    if(fabMenu.classList.contains('hidden')) {
+                        fabMenu.classList.remove('hidden');
+                        fabMenu.classList.add('flex');
+                        // Small delay for transition
+                        setTimeout(() => {
+                            fabMenu.style.opacity = '1';
+                            fabMenu.style.transform = 'scale(1)';
+                        }, 10);
+                    } else {
+                        fabMenu.style.opacity = '0';
+                        fabMenu.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            fabMenu.classList.add('hidden');
+                            fabMenu.classList.remove('flex');
+                        }, 150);
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

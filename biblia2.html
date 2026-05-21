@@ -1,0 +1,404 @@
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { 
+  Book, Upload, ChevronDown, ChevronLeft, Menu, X, 
+  Search, Trash2, FileText, Moon, Sun, Type, 
+  Settings, Bookmark, Share2, ArrowRight, CheckCircle2
+} from 'lucide-react';
+
+// --- FIREBASE SETUP (Usando importaciones compatibles con módulos web) ---
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, collection, doc, setDoc, onSnapshot, deleteDoc } from 'firebase/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCpCtxZqnj6HyjfjAfkgiJcEB5dMxwtmwc",
+  authDomain: "bibliarv60-5bbc5.firebaseapp.com",
+  projectId: "bibliarv60-5bbc5",
+  storageBucket: "bibliarv60-5bbc5.firebasestorage.app",
+  messagingSenderId: "445409342174",
+  appId: "1:445409342174:web:0ce65b2f6bc935ba2c884f",
+  measurementId: "G-DQ56JYDPN0"
+};
+
+// Inicialización única
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const appId = "bibliarv60-5bbc5"; 
+
+export default function App() {
+  const [user, setUser] = useState(null);
+  const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedChapter, setSelectedChapter] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [theme, setTheme] = useState('sepia'); 
+  const [fontSize, setFontSize] = useState(20); 
+  
+  const [isUploading, setIsUploading] = useState(false);
+  const [notification, setNotification] = useState(null);
+  const fileInputRef = useRef(null);
+
+  // --- AUTENTICACIÓN ---
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        await signInAnonymously(auth);
+      } catch (err) {
+        console.error("Error de Auth:", err);
+      }
+    };
+    initAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // --- CARGA DE DATOS ---
+  useEffect(() => {
+    if (!user) return;
+    
+    // Referencia a la colección siguiendo las reglas de seguridad
+    const booksRef = collection(db, 'artifacts', appId, 'public', 'data', 'bible_books');
+    
+    const unsubscribe = onSnapshot(booksRef, (snapshot) => {
+      const loadedBooks = [];
+      snapshot.forEach(doc => {
+        loadedBooks.push({ id: doc.id, ...doc.data() });
+      });
+      
+      // Ordenar alfabéticamente en memoria
+      loadedBooks.sort((a, b) => a.book.localeCompare(b.book));
+      setBooks(loadedBooks);
+      
+      // Selección automática si no hay uno seleccionado
+      if (loadedBooks.length > 0 && !selectedBook) {
+        setSelectedBook(loadedBooks[0]);
+      }
+    }, (err) => {
+      console.error("Error en Firestore:", err);
+      showNotification("Error al cargar la base de datos", "error");
+    });
+    
+    return () => unsubscribe();
+  }, [user]);
+
+  const showNotification = (message, type = "success") => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  // --- ANALIZADOR DE TEXTO (SQL FORMAT) ---
+  const parseSqlTuples = (text) => {
+    const chaptersMap = {};
+    const regex = /\(\d+,\s*(\d+),\s*(\d+),\s*'(.*?)'\)/g;
+    let match;
+    let maxCap = 0;
+
+    while ((match = regex.exec(text)) !== null) {
+      const cap = parseInt(match[1]);
+      const ver = parseInt(match[2]);
+      const content = match[3].replace(/\\'/g, "'");
+
+      if (!chaptersMap[cap]) chaptersMap[cap] = [];
+      chaptersMap[cap][ver - 1] = content;
+      if (cap > maxCap) maxCap = cap;
+    }
+
+    const result = [];
+    for (let i = 1; i <= maxCap; i++) {
+      result.push((chaptersMap[i] || []).map(v => v || ""));
+    }
+    return result;
+  };
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file || !user) return;
+
+    setIsUploading(true);
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const content = event.target.result;
+        const chapters = parseSqlTuples(content);
+        
+        if (chapters.length === 0) throw new Error("Formato de archivo no válido para RV60.");
+
+        const bookName = file.name.replace('.txt', '').replace(/_/g, ' ');
+        const docId = bookName.toLowerCase().replace(/\s+/g, '_');
+        
+        await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bible_books', docId), {
+          book: bookName,
+          chapters: chapters,
+          updatedAt: new Date().toISOString()
+        });
+
+        showNotification(`"${bookName}" disponible en tu biblioteca`);
+      } catch (err) {
+        showNotification(err.message, "error");
+      } finally {
+        setIsUploading(false);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const deleteBook = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'bible_books', id));
+      showNotification("Libro eliminado de la nube");
+      if (selectedBook?.id === id) setSelectedBook(null);
+    } catch (err) {
+      showNotification("No se pudo eliminar", "error");
+    }
+  };
+
+  const filteredBooks = useMemo(() => {
+    return books.filter(b => b.book.toLowerCase().includes(searchTerm.toLowerCase()));
+  }, [books, searchTerm]);
+
+  // Estilos de Temas
+  const themeClasses = {
+    light: "bg-white text-slate-900 border-slate-200",
+    dark: "bg-zinc-950 text-zinc-100 border-zinc-800",
+    sepia: "bg-[#f4ecd8] text-[#5b4636] border-[#e2d6b5]"
+  };
+
+  const readerBg = {
+    light: "bg-slate-50",
+    dark: "bg-zinc-900",
+    sepia: "bg-[#fdf9f0]"
+  };
+
+  return (
+    <div className={`h-screen flex flex-col md:flex-row transition-colors duration-500 font-sans ${themeClasses[theme]}`}>
+      
+      {/* Sistema de Notificaciones */}
+      {notification && (
+        <div className={`fixed top-6 right-6 z-[60] px-6 py-4 rounded-2xl shadow-2xl flex items-center transform transition-all animate-in fade-in slide-in-from-top-4 ${
+          notification.type === 'error' ? 'bg-red-600 text-white' : 'bg-indigo-600 text-white'
+        }`}>
+          {notification.type === 'error' ? <X size={18} className="mr-2" /> : <CheckCircle2 size={18} className="mr-2" />}
+          <span className="font-bold">{notification.message}</span>
+        </div>
+      )}
+
+      {/* Sidebar de Biblioteca */}
+      <aside className={`
+        ${isSidebarOpen ? 'w-full md:w-80' : 'w-0'} 
+        ${themeClasses[theme]} border-r relative z-50 flex flex-col transition-all duration-300 overflow-hidden
+      `}>
+        <div className="p-6 flex items-center justify-between shrink-0">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-indigo-600 rounded-xl text-white">
+              <Book size={24} />
+            </div>
+            <h1 className="text-xl font-black tracking-tight uppercase">Biblia RV60</h1>
+          </div>
+          <button onClick={() => setIsSidebarOpen(false)} className="md:hidden p-2 rounded-full hover:bg-black/5">
+            <X size={20} />
+          </button>
+        </div>
+
+        <div className="px-6 mb-4 shrink-0">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 opacity-40" size={18} />
+            <input 
+              type="text" 
+              placeholder="Filtrar libros..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-black/5 border-none rounded-xl py-3 pl-10 pr-4 focus:ring-2 focus:ring-indigo-500/50 outline-none"
+            />
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-4 py-2 space-y-1 custom-scrollbar">
+          {filteredBooks.map(b => (
+            <div 
+              key={b.id}
+              onClick={() => { setSelectedBook(b); setSelectedChapter(0); if(window.innerWidth < 768) setIsSidebarOpen(false); }}
+              className={`group flex items-center justify-between p-3.5 rounded-xl cursor-pointer transition-all ${
+                selectedBook?.id === b.id 
+                ? 'bg-indigo-600 text-white shadow-lg' 
+                : 'hover:bg-black/5'
+              }`}
+            >
+              <div className="flex items-center overflow-hidden">
+                <FileText size={18} className={`mr-3 shrink-0 ${selectedBook?.id === b.id ? 'opacity-100' : 'opacity-40'}`} />
+                <span className="font-bold truncate">{b.book}</span>
+              </div>
+              <button 
+                onClick={(e) => { e.stopPropagation(); deleteBook(b.id); }}
+                className="p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white"
+              >
+                <Trash2 size={14} />
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="p-6 border-t border-black/5 shrink-0">
+          <input type="file" ref={fileInputRef} onChange={handleUpload} className="hidden" accept=".txt" />
+          <button 
+            onClick={() => fileInputRef.current.click()}
+            disabled={isUploading}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center space-x-2 shadow-xl shadow-indigo-100 transition-all disabled:opacity-50"
+          >
+            {isUploading ? <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" /> : <><Upload size={18} /> <span>AÑADIR LIBRO</span></>}
+          </button>
+        </div>
+      </aside>
+
+      {/* Lector Principal */}
+      <main className={`flex-1 flex flex-col h-full overflow-hidden transition-colors duration-500 ${readerBg[theme]}`}>
+        <header className={`${themeClasses[theme]} border-b h-20 flex items-center justify-between px-6 md:px-12 z-40 shrink-0`}>
+          <div className="flex items-center space-x-4">
+            {!isSidebarOpen && (
+              <button onClick={() => setIsSidebarOpen(true)} className="p-2.5 bg-indigo-600 text-white rounded-xl shadow-lg">
+                <Menu size={20} />
+              </button>
+            )}
+            <div>
+              <h2 className="text-xl font-black uppercase tracking-tight truncate max-w-[150px] md:max-w-none">
+                {selectedBook?.book || "Biblioteca"}
+              </h2>
+              <p className="text-[10px] opacity-60 font-bold uppercase tracking-widest">Reina Valera 1960</p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-2 md:space-x-4">
+            <div className="hidden sm:flex bg-black/5 rounded-full p-1 items-center">
+              <button onClick={() => setTheme('light')} className={`p-2 rounded-full ${theme === 'light' ? 'bg-white shadow-sm' : 'opacity-40'}`}><Sun size={18} /></button>
+              <button onClick={() => setTheme('sepia')} className={`p-2 rounded-full ${theme === 'sepia' ? 'bg-[#f4ecd8] shadow-sm' : 'opacity-40'}`}><Type size={18} /></button>
+              <button onClick={() => setTheme('dark')} className={`p-2 rounded-full ${theme === 'dark' ? 'bg-zinc-800 shadow-sm text-white' : 'opacity-40'}`}><Moon size={18} /></button>
+            </div>
+            
+            {selectedBook && (
+              <div className="relative">
+                <select 
+                  value={selectedChapter}
+                  onChange={(e) => setSelectedChapter(Number(e.target.value))}
+                  className={`${themeClasses[theme]} border rounded-xl px-4 py-2 font-bold focus:ring-2 focus:ring-indigo-500 outline-none appearance-none pr-10 cursor-pointer shadow-sm`}
+                >
+                  {selectedBook.chapters.map((_, i) => <option key={i} value={i}>Capítulo {i + 1}</option>)}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 opacity-40 pointer-events-none" size={18} />
+              </div>
+            )}
+          </div>
+        </header>
+
+        <div className="flex-1 overflow-y-auto px-6 py-12 md:px-12 lg:px-24 custom-scrollbar">
+          {selectedBook ? (
+            <article className="max-w-3xl mx-auto">
+              <header className="mb-16 text-center">
+                <div className="inline-block px-4 py-1 rounded-full bg-indigo-600 text-white text-[10px] font-black tracking-[0.2em] uppercase mb-4">
+                  Capítulo {selectedChapter + 1}
+                </div>
+                <h1 className="text-5xl md:text-7xl font-serif font-black tracking-tight mb-4">
+                  {selectedBook.book}
+                </h1>
+                <div className="w-24 h-1 bg-indigo-600 mx-auto rounded-full opacity-20"></div>
+              </header>
+
+              <div 
+                className="font-serif leading-relaxed space-y-8 text-justify"
+                style={{ fontSize: `${fontSize}px` }}
+              >
+                {selectedBook.chapters[selectedChapter].map((verse, i) => verse && (
+                  <div key={i} className="relative group pl-10 md:pl-0">
+                    <span className="absolute -left-0 md:-left-12 top-1.5 text-indigo-500 font-bold text-sm md:text-lg select-none opacity-40 group-hover:opacity-100 transition-opacity">
+                      {i + 1}
+                    </span>
+                    <p className="inline-block align-top transition-colors hover:text-indigo-600/80">
+                      {verse}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-24 pt-12 border-t border-black/5 flex flex-col md:flex-row gap-4 items-center justify-between pb-20">
+                <button 
+                  disabled={selectedChapter === 0}
+                  onClick={() => setSelectedChapter(c => c - 1)}
+                  className="w-full md:w-auto flex items-center justify-center space-x-3 px-8 py-4 rounded-2xl bg-black/5 hover:bg-black/10 disabled:opacity-20 transition-all font-bold"
+                >
+                  <ChevronLeft /> <span>Anterior</span>
+                </button>
+                <button 
+                  disabled={selectedChapter === selectedBook.chapters.length - 1}
+                  onClick={() => setSelectedChapter(c => c + 1)}
+                  className="w-full md:w-auto flex items-center justify-center space-x-3 px-8 py-4 rounded-2xl bg-indigo-600 text-white shadow-xl hover:scale-105 transition-all font-bold"
+                >
+                  <span>Siguiente Capítulo</span> <ArrowRight />
+                </button>
+              </div>
+            </article>
+          ) : (
+            <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto py-20">
+              <div className="w-32 h-32 bg-indigo-100 rounded-[3rem] flex items-center justify-center mb-10 transform rotate-12 shadow-2xl">
+                <Book size={64} className="text-indigo-600 -rotate-12" />
+              </div>
+              <h2 className="text-4xl font-black mb-4 uppercase">Tu Biblia en la Nube</h2>
+              <p className="opacity-60 leading-relaxed mb-8 font-medium">
+                Sube tus libros en formato .txt (tuplas SQL) y sincronízalos entre todos tus dispositivos usando Firebase.
+              </p>
+              <div className="grid grid-cols-2 gap-4 w-full">
+                <div className="bg-white/40 p-5 rounded-2xl border border-black/5">
+                  <div className="font-black text-indigo-600 text-lg uppercase tracking-tighter">Seguro</div>
+                  <div className="text-xs opacity-60">Datos en Firebase</div>
+                </div>
+                <div className="bg-white/40 p-5 rounded-2xl border border-black/5">
+                  <div className="font-black text-indigo-600 text-lg uppercase tracking-tighter">Rápido</div>
+                  <div className="text-xs opacity-60">Carga instantánea</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Controles de fuente flotantes */}
+        {selectedBook && (
+          <div className="fixed bottom-8 right-8 z-40 flex flex-col space-y-3">
+             <div className="flex flex-col bg-white shadow-2xl rounded-full p-2 border border-slate-100 text-slate-900">
+                <button onClick={() => setFontSize(f => Math.min(f + 2, 40))} className="p-3 hover:bg-slate-50 rounded-full"><Type size={20} /></button>
+                <div className="h-px bg-slate-100 mx-2"></div>
+                <button onClick={() => setFontSize(f => Math.max(f - 2, 14))} className="p-3 hover:bg-slate-50 rounded-full scale-75"><Type size={20} /></button>
+             </div>
+          </div>
+        )}
+      </main>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;700;900&display=swap');
+        
+        .font-serif { font-family: 'Crimson Pro', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { 
+          background: rgba(0,0,0,0.1); 
+          border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+          .custom-scrollbar::-webkit-scrollbar { display: none; }
+        }
+
+        .animate-in {
+          animation: animate-in 0.3s ease-out;
+        }
+
+        @keyframes animate-in {
+          from { opacity: 0; transform: translateY(-1rem); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+}
